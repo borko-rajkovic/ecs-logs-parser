@@ -9,6 +9,7 @@
   "bugs": {
     "url": "https://github.com/borko-rajkovic/ecs-logs-parser/issues"
   },
+  "publisher": "borko-rajkovic",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.85.0"
