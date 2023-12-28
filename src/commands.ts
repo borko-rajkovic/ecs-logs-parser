@@ -10,7 +10,7 @@ export const extractLastErrorsStackTrace = async () => {
     return;
   }
 
-  await selectLastError(lastError.index, editor);
+  await selectLastError(lastError, editor);
 
   await showStackTraceInNewEditor(lastError.line);
 };
@@ -22,7 +22,7 @@ export const extractLastError = async () => {
     return;
   }
 
-  await selectLastError(lastError.index, editor);
+  await selectLastError(lastError, editor);
 
   await showErrorDetailsInNewEditor(lastError.line);
 };
@@ -63,18 +63,58 @@ const showStackTraceInNewEditor = async (lastError: string) => {
 };
 
 const selectLastError = async (
-  lastErrorLineIndex: number,
+  lastError: {
+    line: string;
+    index: number;
+  },
   editor: vscode.TextEditor
 ) => {
+  const lastErrorLineIndex = lastError.index;
   await vscode.commands.executeCommand("revealLine", {
     lineNumber: lastErrorLineIndex,
     at: "center",
   });
 
-  const startPosition = new vscode.Position(lastErrorLineIndex, 0);
-  const endPosition = new vscode.Position(lastErrorLineIndex, 60);
-  const selection = new vscode.Selection(startPosition, endPosition);
-  editor.selection = selection;
+  let config = vscode.workspace.getConfiguration("ecs-logs-parser");
+  let highlightOption = config.get("highlightLastError");
+
+  switch (highlightOption) {
+    case "none":
+      return;
+    case "first-n-chars":
+      {
+        let highlightChars = config.get<number>("highlightChars");
+
+        if (!highlightChars) {
+          vscode.window.showErrorMessage(
+            "Please configure ecs-logs-parser.highlightChars in settings.json"
+          );
+          return;
+        }
+
+        const startPosition = new vscode.Position(lastErrorLineIndex, 0);
+        const endPosition = new vscode.Position(
+          lastErrorLineIndex,
+          highlightChars
+        );
+        const selection = new vscode.Selection(startPosition, endPosition);
+        editor.selection = selection;
+      }
+      break;
+    case "line":
+      {
+        const startPosition = new vscode.Position(lastErrorLineIndex, 0);
+        const endPosition = new vscode.Position(
+          lastErrorLineIndex,
+          lastError.line.length
+        );
+        const selection = new vscode.Selection(startPosition, endPosition);
+        editor.selection = selection;
+      }
+      break;
+    default:
+      return;
+  }
 };
 
 const showErrorDetailsInNewEditor = async (lastError: string) => {

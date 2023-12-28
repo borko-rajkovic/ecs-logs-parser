@@ -19,6 +19,27 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "ECS Logs Parser",
+      "properties": {
+        "ecs-logs-parser.highlightLastError": {
+          "type": "string",
+          "default": "first-n-chars",
+          "enum": [
+            "none",
+            "first-n-chars",
+            "line"
+          ],
+          "description": "Highlight last Error in the log"
+        },
+        "ecs-logs-parser.highlightChars": {
+          "type": "number",
+          "default": 60,
+          "description": "Number of characters to highlight if highlightLastError is set to first-n-chars"
+        }
+      }
+    },
     "commands": [
       {
         "command": "ecs-logs-parser.extractLastErrorsStackTrace",
