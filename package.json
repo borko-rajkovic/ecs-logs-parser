@@ -21,8 +21,14 @@
   "contributes": {
     "commands": [
       {
-        "command": "ecs-logs-parser.helloWorld",
-        "title": "Hello World"
+        "command": "ecs-logs-parser.extractLastErrorsStackTrace",
+        "title": "Extract last Error's stack trace",
+        "category": "ECS Logs Parser"
+      },
+      {
+        "command": "ecs-logs-parser.extractLastError",
+        "title": "Extract last Error details",
+        "category": "ECS Logs Parser"
       }
     ]
   },
