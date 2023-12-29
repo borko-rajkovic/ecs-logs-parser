@@ -21,6 +21,10 @@ This extension has the following settings:
 
 ## Release Notes
 
+### 0.0.5
+
+- Lower down vscode engine requirements
+
 ### 0.0.4
 
 - Fix bug for extracting only stack trace
