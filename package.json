@@ -10,7 +10,7 @@
     "url": "https://github.com/borko-rajkovic/ecs-logs-parser/issues"
   },
   "publisher": "borko-rajkovic",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -37,7 +37,7 @@
         },
         "ecs-logs-parser.exportToSide": {
           "type": "boolean",
-          "default": true,
+          "default": false,
           "description": "Choose whether to open a new editor to a separate group next to the current one"
         },
         "ecs-logs-parser.highlightLastError": {

@@ -76,11 +76,9 @@ const getLastError = () => {
 };
 
 const showStackTraceInNewEditor = async (lastError: string) => {
-  const newEditor = await vscode.workspace.openTextDocument({
-    content: JSON.parse(lastError)["error.stack_trace"],
-  });
+  const content = JSON.parse(lastError)["error.stack_trace"];
 
-  await vscode.window.showTextDocument(newEditor);
+  await displayInNewEditor(content);
 };
 
 const selectLastError = async (
@@ -143,9 +141,14 @@ const showErrorDetailsInNewEditor = async (lastError: string) => {
   const stackTrace = parsedLastError["error.stack_trace"];
   parsedLastError["error.stack_trace"] = "<Check bellow>";
   lastError = JSON.stringify(parsedLastError, null, 2);
+  const content = lastError + "\n\nStack trace:\n\n" + stackTrace;
 
+  await displayInNewEditor(content);
+};
+
+const displayInNewEditor = async (content: string) => {
   const newEditor = await vscode.workspace.openTextDocument({
-    content: lastError + "\n\nStack trace:\n\n" + stackTrace,
+    content,
     language: "java",
   });
 

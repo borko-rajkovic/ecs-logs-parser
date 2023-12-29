@@ -21,6 +21,10 @@ This extension has the following settings:
 
 ## Release Notes
 
+### 0.0.4
+
+- Fix bug for extracting only stack trace
+
 ### 0.0.3
 
 - Added configuration to show new editor with result to side of the current editor
