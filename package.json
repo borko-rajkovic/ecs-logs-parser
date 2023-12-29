@@ -10,23 +10,34 @@
     "url": "https://github.com/borko-rajkovic/ecs-logs-parser/issues"
   },
   "publisher": "borko-rajkovic",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.85.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "*"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "configuration": {
       "type": "object",
       "title": "ECS Logs Parser",
       "properties": {
+        "ecs-logs-parser.sideBarAction": {
+          "type": "string",
+          "default": "extractLastError",
+          "enum": [
+            "extractLastError",
+            "extractLastErrorsStackTrace"
+          ],
+          "description": "Choose which command to be run on sidebar click"
+        },
         "ecs-logs-parser.highlightLastError": {
           "type": "string",
-          "default": "first-n-chars",
+          "default": "line",
           "enum": [
             "none",
             "first-n-chars",

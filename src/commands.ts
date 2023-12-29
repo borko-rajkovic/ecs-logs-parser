@@ -3,6 +3,27 @@ import { getLastLineThatStartsWithAndHasWord } from "./utils/utils";
 
 let editor: vscode.TextEditor;
 
+export const sidebarButtonAction = async () => {
+  let config = vscode.workspace.getConfiguration("ecs-logs-parser");
+  let sideBarAction = config.get("sideBarAction");
+
+  if (sideBarAction === "extractLastError") {
+    await extractLastError();
+  } else {
+    await extractLastErrorsStackTrace();
+  }
+};
+
+export const updateStatusBarItem = (
+  lastErrorStatusBarItem: vscode.StatusBarItem
+) => {
+  if (vscode.window.activeTextEditor) {
+    lastErrorStatusBarItem.show();
+  } else {
+    lastErrorStatusBarItem.hide();
+  }
+};
+
 export const extractLastErrorsStackTrace = async () => {
   const lastError = getLastError();
 
