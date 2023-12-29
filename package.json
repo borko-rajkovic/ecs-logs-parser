@@ -10,7 +10,7 @@
     "url": "https://github.com/borko-rajkovic/ecs-logs-parser/issues"
   },
   "publisher": "borko-rajkovic",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -33,7 +33,12 @@
             "extractLastError",
             "extractLastErrorsStackTrace"
           ],
-          "description": "Choose which command to be run on sidebar click"
+          "description": "Choose which command to run on the sidebar click"
+        },
+        "ecs-logs-parser.exportToSide": {
+          "type": "boolean",
+          "default": true,
+          "description": "Choose whether to open a new editor to a separate group next to the current one"
         },
         "ecs-logs-parser.highlightLastError": {
           "type": "string",

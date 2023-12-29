@@ -146,7 +146,17 @@ const showErrorDetailsInNewEditor = async (lastError: string) => {
 
   const newEditor = await vscode.workspace.openTextDocument({
     content: lastError + "\n\nStack trace:\n\n" + stackTrace,
+    language: "java",
   });
 
-  await vscode.window.showTextDocument(newEditor);
+  let config = vscode.workspace.getConfiguration("ecs-logs-parser");
+  let exportToSide = config.get("exportToSide");
+
+  const viewColumn = exportToSide
+    ? vscode.ViewColumn.Beside
+    : vscode.ViewColumn.Active;
+
+  await vscode.window.showTextDocument(newEditor, {
+    viewColumn,
+  });
 };
